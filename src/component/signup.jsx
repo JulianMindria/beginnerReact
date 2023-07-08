@@ -1,6 +1,9 @@
 import React from 'react'
 import axios from 'axios'
 import { useState } from 'react'
+import bg from '../assets/Group 10.svg'
+import logo from '../assets/tickitz 1.svg'
+import { Link } from 'react-router-dom'
 
 
 function formsignup() {
@@ -28,11 +31,11 @@ function formsignup() {
   <section className="relative w-1/2 h-full md:flex hidden flex-col">
     <img
       className="h-full w-full object-cover"
-      src="./assets/Group 10.svg"
+      src={bg}
       alt=""
     />
     <div className="absolute flex flex-col w-full h-full items-center justify-center">
-      <img className="w-1/2" src="./assets/tickitz 1.svg" alt="" />
+      <img className="w-1/2" src={logo} alt="" />
       <p className="text-white">wait, watch, wow!</p>
     </div>
   </section>
@@ -113,7 +116,7 @@ function formsignup() {
         type="submit"
         className="bg-primary h-16 rounded-lg text-white font-bold"
       >
-        Sign Up
+        <Link to='/home'>Sign Up</Link>
       </button>
       <div className="flex flex-col gap-y-2 text-center">
         <p className="text-gray-400">

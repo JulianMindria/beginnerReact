@@ -3,6 +3,7 @@ import logo from '../assets/Tickitz 1.jpg'
 import mglass from '../assets/bx_bx-search.jpg'
 import avatar from '../assets/Ellipse 11.svg'
 import burger from '../assets/gg_menu-right-alt.svg'
+import { Link } from 'react-router-dom'
 
 function Header() {
   return (
@@ -17,12 +18,12 @@ function Header() {
         />
       </a>
       <div className="hidden md:flex md:gap-x-12">
-        <a className="font-semibold text-base" href="payment.html">
+        <Link className="font-semibold text-base" to="/home">
           Home
-        </a>
-        <a className="font-semibold text-base" href="./view.html">
+        </Link>
+        <Link className="font-semibold text-base" to="/movie">
           List Movie
-        </a>
+        </Link>
       </div>
     </div>
     <div className="hidden md:flex md:gap-x-12 items-center justify-between">
@@ -38,7 +39,7 @@ function Header() {
       />
     </div>
         <div className="md:hidden dropdown dropdown-bottom dropdown-end">
-            <label tabIndex={0} className="btn m-2"><img src={burger} alt="" /></label>
+            <label tabIndex={0} fill="none" className="btn m-2"><img src={burger} alt="" /></label>
             <ul tabIndex={0} className="dropdown-content z-[1] menu items-center shadow bg-base-100 rounded-box w-52">
                 <li><a>Sign Up</a></li>
                 <li><a>List Movie</a></li>
