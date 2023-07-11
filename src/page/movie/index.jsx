@@ -8,11 +8,14 @@ import axios from 'axios'
 import Cards from '../../component/cards'
 
 
+
 function movie() {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [genres, setGenre] = useState([])
     const [movies, setMovies] = useState([])
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+    const [search, setSearch] = useState('')
 
     const getGenre = async () => {
         try {
@@ -25,17 +28,33 @@ function movie() {
 
     const getMovies = async () => {
         try {
-            const {data}= await axios.get('http://localhost:8333/movie?limit=8')
+            const {data}= await axios.get(`http://localhost:8333/movie?limit=4&page=${currentPage}&search=${search}`)
             setMovies(data.data)
+            setTotalPages(Math.ceil(data.meta.total / 5));
+            console.log(data.meta.total)
         } catch (error) {
             console.log(error)
         }
     }
+
+
+    const goToPrevPage = () => {
+      setCurrentPage((prevPage) => prevPage - 1);
+    };
+    
+    const goToNextPage = () => {
+      setCurrentPage((prevPage) => prevPage + 1);
+    };
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(()=>{
         getGenre()
-        getMovies()
     }, [])
+
+    useEffect(()=>{
+      getMovies()
+    }, [currentPage, search])
+
 
   return (
     <>
@@ -59,6 +78,7 @@ function movie() {
         type="text"
         id="search"
         name="search"
+        onChange={(e) => setSearch(e.target.value)}
         placeholder="Search Movie Name ..."
       />
     </div>
@@ -126,32 +146,26 @@ function movie() {
             })
         }
   </div>
-  <div className="mx-auto flex max-w-7xl items-center justify-center p-5 gap-x-2 py-10">
-    <a
-      className="bg-white text-primary hover:bg-primary hover:text-white text-gray-600 w-10 h-10 items-center text-center flex justify-center rounded-lg border border-gray-300 font-semibold"
-      href="#"
-    >
-      1
-    </a>
-    <a
-      className="bg-white text-primary hover:bg-primary hover:text-white text-gray-600 w-10 h-10 items-center text-center flex justify-center rounded-lg border border-gray-300 font-semibold"
-      href="#"
-    >
-      2
-    </a>
-    <a
-      className="bg-white text-primary hover:bg-primary hover:text-white text-gray-600 w-10 h-10 items-center text-center flex justify-center rounded-lg border border-gray-300 font-semibold"
-      href="#"
-    >
-      3
-    </a>
-    <a
-      className="bg-white text-primary hover:bg-primary hover:text-white text-gray-600 w-10 h-10 items-center text-center flex justify-center rounded-lg border border-gray-300 font-semibold"
-      href="#"
-    >
-      4
-    </a>
-  </div>
+    <div className="mx-auto flex max-w-7xl items-center justify-center p-5 gap-x-2 py-10">
+      <div className="button page flex flex-row gap-x-2 mb-12 mt-8">
+        {currentPage > 1 && (
+          <button
+            onClick={goToPrevPage}
+            className="px-3 py-3 bg-white text-primary hover:bg-primary hover:text-white text-gray-600 w-20 h-10 items-center text-center flex justify-center rounded-lg border border-gray-300 font-semibold"
+          >
+            Prev
+          </button>
+        )}
+        {currentPage < totalPages && (
+          <button
+            onClick={goToNextPage}
+            className="px-3 py-3 bg-white text-primary hover:bg-primary hover:text-white text-gray-600 w-20 h-10 items-center text-center flex justify-center rounded-lg border border-gray-300 font-semibold"
+          >
+            Next
+          </button>
+        )}
+      </div>
+    </div>
 </section>
 
         <Footer/>

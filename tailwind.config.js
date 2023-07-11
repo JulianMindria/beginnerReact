@@ -1,10 +1,32 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx}"],
+  content: ["./src/**/*.{html,js,jsx}", './src/component/profile.jsx'],
   theme: {
-    extend: {},
-  },
- plugins: [require("daisyui")],
+    extend: {
+        colors: {
+            primary: '#5F2EEA',
+        },
+        fontFamily: {
+            mulish:['Mulish']
+        },
+        spacing:{
+            '75':'20.5rem',
+            '100':'29.6rem',
+            '1000':'80rem',
+        },
+        borderRadius:{
+            'xlg':'1.5rem',
+            'mlg':'1rem'
+        },
+        textUnderlineOffset: {
+            26: '26px',
+        }
+    }
+},
+ plugins: [
+  require("daisyui"),
+  require('flowbite/plugin')
+],
  daisyui: {
     themes: false, // true: all themes | false: only light + dark | array: specific themes like this ["light", "dark", "cupcake"]
     darkTheme: "light", // name of one of the included themes for dark mode

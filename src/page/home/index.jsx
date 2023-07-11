@@ -4,21 +4,40 @@ import Header from '../../component/header'
 import Footer from '../../component/footer'
 import Cards from '../../component/cards'
 import hero from '../../assets/Group 14.svg'
-import axios from 'axios'
 import CardHome from '../../component/cardHome'
+import useApi from '../../helper/useApi'
+import { useSelector } from 'react-redux/es/hooks/useSelector'
 
 function Home() {
 
   const [movies, setMovies] = useState([])
+  const api = useApi()
+  const {isAuth} = useSelector((s)=>s.users)
+  console.log(isAuth)
 
   const getMovies = async () => {
       try {
-          const {data}= await axios.get('http://localhost:8333/movie?limit=8')
+          const {data}= await api.get('/movie?limit=8')
           setMovies(data.data)
       } catch (error) {
           console.log(error)
       }
   }
+
+  const fetchUser = async () => {
+    try {
+      const { data } = await api.get('/user')
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    if (isAuth){
+      fetchUser()
+    }
+  }, [isAuth])
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(()=>{
       getMovies()
