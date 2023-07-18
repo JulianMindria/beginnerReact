@@ -7,6 +7,7 @@ import { Container, Show } from '../../helper/toast'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../store/reducer/user'
 import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 function signin() {
 
@@ -79,13 +80,13 @@ function signin() {
         </div>
         <div className="flex flex-col gap-y-5">
           <div className="flex flex-col font-mulish">
-            <label htmlFor="Username" className="text-gray-600 py-2">
+            <label htmlFor="username" className="text-gray-600 py-2">
               Username
             </label>
             <input
               className="rounded-lg h-16 border border-gray-200 px-5"
               type="text"
-              name='username'
+              name="username"
               onChange={handleInput}
               placeholder="Write your username"
               required=""
@@ -121,9 +122,9 @@ function signin() {
           </p>
           <p className="text-gray-400">
             Don't have an account?{" "}
-            <a className="text-primary underline" href="signup.html">
+            <Link className="text-primary underline" to="/signup">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>

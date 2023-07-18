@@ -7,13 +7,16 @@ import hero from '../../assets/Group 14.svg'
 import CardHome from '../../component/cardHome'
 import useApi from '../../helper/useApi'
 import { useSelector } from 'react-redux/es/hooks/useSelector'
+import { useDispatch } from 'react-redux'
+import { addData } from '../../store/reducer/user'
 
 function Home() {
 
   const [movies, setMovies] = useState([])
   const api = useApi()
   const {isAuth} = useSelector((s)=>s.users)
-  console.log(isAuth)
+
+  const dispatch = useDispatch()
 
   const getMovies = async () => {
       try {
@@ -24,10 +27,10 @@ function Home() {
       }
   }
 
-  const fetchUser = async () => {
+  const getUserdata = async () => {
     try {
       const { data } = await api.get('/user')
-      console.log(data)
+      dispatch(addData(data.data))
     } catch (error) {
       console.log(error)
     }
@@ -35,7 +38,7 @@ function Home() {
 
   useEffect(()=>{
     if (isAuth){
-      fetchUser()
+      getUserdata()
     }
   }, [isAuth])
   // eslint-disable-next-line react-hooks/rules-of-hooks

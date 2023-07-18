@@ -32,7 +32,7 @@ function update() {
     <>
         <Header />
         {update.map((v)=>{
-            return <Updateform id={v.movie_id} name={v.title} date={v.date_released} genre={v.genre_id} casts={v.casts} director={v.director} synopsis={v.synopsis} image={v.movie_banner} duration={v.duration} />
+            return <Updateform id={v.movie_id} names={v.title} dates={v.date_released} genres={v.genres} cast={v.casts} directors={v.director} syn={v.synopsis} images={v.movie_banner} durations={v.duration} />
         })}
         <Footer />
     </>

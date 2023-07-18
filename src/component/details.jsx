@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-function details({image, title, genre, duration, director, synopsis}) {
+function details({image, title, genre, duration, director, synopsis, date}) {
   return (
     <>
         <main className="mx-auto flex md:flex-row flex-col items-center max-w-7xl h-auto gap-x-10 justify-center p-5">
@@ -23,7 +23,7 @@ function details({image, title, genre, duration, director, synopsis}) {
         <div className="">
         <div className="">
             <p className="text-sm text-gray-600 my-2">Release date</p>
-            <p className="caption">June 28, 2017</p>
+            <p className="caption">{date}</p>
         </div>
         <div className="details">
             <p className="text-sm text-gray-600 my-2">Directed by</p>

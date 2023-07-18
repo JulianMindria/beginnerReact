@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
+import { Show, Container } from '../helper/toast'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 function updateCards({name, image, genre, id}) {
     const deleteData = async(movie_id) => {
@@ -10,8 +12,14 @@ function updateCards({name, image, genre, id}) {
             await axios.delete('http://localhost:8333/movie/', {
                 data:{"movie_id":movie_id}
             })
+            Show("Delete Success", "success")
         } catch (error) {
-            console.log(error)
+            const axiosErr = error.response.data
+            if (axiosErr.message !== undefined) {
+                Show(axiosErr.message, 'warning')
+            } else if (axiosErr.error !== undefined) {
+                Show(axiosErr.error, 'error')
+            }
         }
 
     }
@@ -20,6 +28,7 @@ function updateCards({name, image, genre, id}) {
   return (
     <>
         <div className="w-56 h-auto bg-white border border-gray-300 items-center mx-auto py-6 rounded-lg flex flex-col">
+        <Container />
         <img
             className="mx-auto w-40 h-64"
             src={image}
@@ -39,13 +48,15 @@ function updateCards({name, image, genre, id}) {
             >
             Update
             </button>
-            <button
-            className="w-40 h-8 mx-auto rounded-md items-center text-rose-400 hover:bg-rose-400 hover:text-white flex justify-center bg-white border border-rose-400"
-            href="#"
-            onClick={()=>deleteData(id)}
-            >
-            Delete
-            </button>
+            <Link to={"/manage"}>
+                <button
+                className="w-40 h-8 mx-auto rounded-md items-center text-rose-400 hover:bg-rose-400 hover:text-white flex justify-center bg-white border border-rose-400"
+                onClick={()=>deleteData(id)}
+                >
+                Delete
+                </button>
+            </Link>
+
         </div>
         </div>
     </>

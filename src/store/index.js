@@ -7,7 +7,7 @@ import userReducer from './reducer/user'
 const config = {
     key: 'tiketz',
     version: 1,
-    storage
+    storage 
 }
 
 const reducers = combineReducers({

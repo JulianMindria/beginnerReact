@@ -3,6 +3,7 @@ import Header from '../../component/header'
 import Footer from '../../component/footer'
 import Details from '../../component/details'
 import { Link, useParams } from 'react-router-dom'
+import moment from 'moment'
 import axios from 'axios'
 
 function details() {
@@ -17,11 +18,17 @@ function details() {
         try {
             const {data} = await axios.get('http://localhost:8333/movie/'+params.id)
             setDetails(data.data)
-            console.log(data)
         } catch (error) {
             console.log(error)
         }
     }
+
+    
+    details.map((v) => {
+        const date = moment(v.date_released)
+        v.date_released = date.format('DD MMMM YYYY')
+        console.log(typeof(v.date_released))
+    })
 
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(()=>{
@@ -33,7 +40,7 @@ function details() {
     <>
         <Header/>
         {details.map((v)=>{
-            return <Details title={v.title} image={v.movie_banner} genre={v.genre_id} duration={v.duration} director={v.director} synopsis={v.synopsis}/>
+            return <Details title={v.title} image={v.movie_banner} genre={v.genres} duration={v.duration} director={v.director} synopsis={v.synopsis} date={v.date_released}/>
         })}
         <Footer/>
     </>

@@ -2,7 +2,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 
-function cards({name, image, genre, id}) {
+function cards({name, image, genre, id, date}) {
     const navigate = useNavigate()
   return (
     <>
